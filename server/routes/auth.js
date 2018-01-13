@@ -4,15 +4,7 @@ const passport = require('passport');
 
 require('./../services/passport');
 
-const authLogin = passport.authenticate('local', { session: true });
-
-const ensureAuthentication = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    res.status(400).send();
-  }
-};
+const authLogin = passport.authenticate('local', { session: false });
 
 const authAccess = passport.authenticate('jwt', { session: false });
 
@@ -22,12 +14,12 @@ router.post('/signup', auth.signup);
 
 router.post('/login', authLogin, auth.login);
 
-router.get('/logout', ensureAuthentication, auth.logout);
+router.get('/logout', authAccess, auth.logout);
 
-router.delete('/delete/me', ensureAuthentication, auth.deleteMe);
+router.delete('/delete/me', authAccess, auth.deleteMe);
 
-router.patch('/update', ensureAuthentication, auth.updateMe);
+router.patch('/update', authAccess, auth.updateMe);
 
-router.get('/me', ensureAuthentication, auth.getMe);
+router.get('/me', authAccess, auth.getMe);
 
 module.exports = router;

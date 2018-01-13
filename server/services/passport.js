@@ -16,7 +16,6 @@ const localAuth = new LocalStrategy(localOptions, (email, password, done) => {
       } else {
         return user.checkPassword(password)
           .then(() => {
-            const token = user.generateAuthToken();
             done(null, user);
           });
       }

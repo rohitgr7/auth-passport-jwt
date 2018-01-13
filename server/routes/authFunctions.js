@@ -23,7 +23,9 @@ module.exports = {
   },
 
   login: (req, res) => {
-    res.send(req.user);
+    const { user } = req;
+    const token = user.generateAuthToken();
+    res.header('p-auth', token).send(user);
   },
 
   logout: (req, res) => {

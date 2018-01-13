@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const core = require('cors');
+const cors = require('cors');
 const passport = require('passport');
 
 const auth = require('./routes/auth');
@@ -10,7 +10,7 @@ require('./database/db');
 const app = express();
 
 // CORS Middleware
-app.use(core());
+app.use(cors());
 
 // Body-parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
